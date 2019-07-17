@@ -10,7 +10,6 @@ import {
 import ErrorView from "../ErrorView";
 import NotDataView from "../NotDataView";
 import LoadingView from "../LoadingView";
-import { StringLiteral } from "@babel/types";
 
 interface ListViewProps {
   dataSource: ReadonlyArray<any>;
@@ -84,7 +83,7 @@ class ListView extends React.PureComponent<ListViewProps> {
     } = this.props;
     const refreshColors: string[] = [refreshColor || "#4C7FEF"];
 
-    if (loading && this.page === 1) {
+    if (loading && this.page === defaultPage) {
       return (
         <LoadingView
           indicatorColor={refreshColor}
@@ -93,7 +92,7 @@ class ListView extends React.PureComponent<ListViewProps> {
       );
     }
 
-    if (error && this.page === 1) {
+    if (error && this.page === defaultPage) {
       return (
         <ErrorView
           onPress={() => {
