@@ -1,5 +1,10 @@
-export interface ProjectData {
+export interface UserData {
+  id: string;
   name: string;
-  code: number;
-  bdName: string;
+  sex: string;
+  age: number;
+}
+
+export interface CommomListParams {
+  start: number;
 }

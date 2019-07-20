@@ -1,13 +1,14 @@
 import { combineReducers } from "redux";
-import { ProjectData } from "../interface";
+import { UserData } from "../interface";
 import { pageReducer, PageState } from "./handlePageReducer";
+import { User } from "../actions/constans";
 
 const reducer = combineReducers({
-  projectList: pageReducer<ProjectData>("FETCH_PROJECT_LIST")
+  userList: pageReducer<UserData>(User.FETCH_USER_LSIT)
 });
 
 export default reducer;
 
-interface ReducerType {
-  projectList: PageState<ProjectData>;
+export interface ReducerType {
+  userList: PageState<UserData>;
 }

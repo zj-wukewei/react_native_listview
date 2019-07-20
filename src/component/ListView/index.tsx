@@ -5,7 +5,8 @@ import {
   RefreshControl,
   View,
   ActivityIndicator,
-  StyleSheet
+  StyleSheet,
+  Text
 } from "react-native";
 import ErrorView from "../ErrorView";
 import NotDataView from "../NotDataView";
@@ -27,17 +28,24 @@ interface ListViewProps {
   error: boolean;
   refreshColor?: string;
   backgroundColor?: string;
+  defaultPage?: number;
 }
 
-const defaultPage = 0;
+const DefaultPage = 0;
 
 class ListView extends React.PureComponent<ListViewProps> {
   static defaultProps = {
     refreshColor: "#4C7FEF",
-    backgroundColor: "#ffffff"
+    backgroundColor: "#ffffff",
+    defaultPage: DefaultPage
   };
+  page: number;
 
-  page: number = defaultPage;
+  constructor(props: ListViewProps) {
+    super(props);
+    const { defaultPage } = props;
+    this.page = defaultPage || DefaultPage;
+  }
 
   componentDidMount() {
     const { onFetchList } = this.props;
@@ -59,6 +67,7 @@ class ListView extends React.PureComponent<ListViewProps> {
       return (
         <View style={styles.footer}>
           <ActivityIndicator />
+          <Text style={{ marginLeft: 5 }}>加载中...</Text>
         </View>
       );
     }
@@ -66,8 +75,8 @@ class ListView extends React.PureComponent<ListViewProps> {
   };
 
   handleRefresh = () => {
-    const { onFetchList } = this.props;
-    this.page = defaultPage;
+    const { onFetchList, defaultPage } = this.props;
+    this.page = defaultPage || DefaultPage;
     onFetchList(false, true, false, this.page);
   };
 
@@ -79,7 +88,8 @@ class ListView extends React.PureComponent<ListViewProps> {
       loading,
       error,
       refreshColor,
-      backgroundColor
+      backgroundColor,
+      defaultPage
     } = this.props;
     const refreshColors: string[] = [refreshColor || "#4C7FEF"];
 
@@ -126,7 +136,12 @@ class ListView extends React.PureComponent<ListViewProps> {
 }
 
 const styles = StyleSheet.create({
-  footer: {}
+  footer: {
+    height: 40,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
+  }
 });
 
 export default ListView;

@@ -21,7 +21,7 @@ export default function handleReducer<State, Payload, Meta = any>(
   initialState: State,
   reducer: Reducer<State, Payload, Meta>
 ) {
-  return function(state = initialState, action) {
+  return function(state = initialState, action: ActionMeta<Payload, Meta>) {
     const type = action.type;
     const { pending, fulfilled, rejected } = reducer;
     if (pending && typeName + "_PENDING" === type) {

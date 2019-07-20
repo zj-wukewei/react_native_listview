@@ -8,7 +8,9 @@
  * @format
  */
 
-import React, { Fragment } from "react";
+import React from "react";
+import { View, Text } from "react-native";
+import Users from "./containers/users";
 import { Provider } from "react-redux";
 import reduxPromiseMmiddleware from "redux-promise-middleware";
 import { createStore, applyMiddleware } from "redux";
@@ -21,7 +23,11 @@ const store = createStore(
 );
 
 const App = () => {
-  return <Provider store={store} />;
+  return (
+    <Provider store={store}>
+      <Users />
+    </Provider>
+  );
 };
 
 export default App;

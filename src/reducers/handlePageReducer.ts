@@ -21,16 +21,16 @@ export interface PageEntity<TMODLE> {
   totalCount: number;
 }
 
-export function pageAction<TMODLE>(
+export function pageAction<TMODLE, PARAMS>(
   typeName: string,
-  api: (param: any) => Promise<PageEntity<TMODLE>>,
-  paramCallback: (param: any) => any
+  api: (param: PARAMS) => Promise<PageEntity<TMODLE>>,
+  paramCallback?: (param: PARAMS) => PARAMS
 ) {
   return (
     loading: boolean,
     isRefreshing: boolean,
     loadMore: boolean,
-    param: any
+    param: PARAMS
   ) => ({
     type: typeName,
     payload: paramCallback ? api(paramCallback(param)) : api(param),
