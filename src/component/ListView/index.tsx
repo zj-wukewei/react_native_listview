@@ -3,6 +3,7 @@ import {
   FlatList,
   ListRenderItem,
   RefreshControl,
+  TouchableOpacity,
   View,
   ActivityIndicator,
   StyleSheet,
@@ -53,8 +54,8 @@ class ListView extends React.PureComponent<ListViewProps> {
   }
 
   onEndReached = () => {
-    const { onFetchList, loadMore, hasMore } = this.props;
-    if (loadMore || !hasMore) {
+    const { onFetchList, loadMore, hasMore, error } = this.props;
+    if (loadMore || !hasMore || error) {
       return;
     }
     this.page = this.page + 1;
@@ -62,13 +63,26 @@ class ListView extends React.PureComponent<ListViewProps> {
   };
 
   renderFooter = () => {
-    const { loadMore } = this.props;
+    const { loadMore, error } = this.props;
     if (loadMore) {
       return (
         <View style={styles.footer}>
           <ActivityIndicator />
           <Text style={{ marginLeft: 5 }}>加载中...</Text>
         </View>
+      );
+    }
+    if (error) {
+      return (
+        <TouchableOpacity
+          style={styles.errorFooter}
+          onPress={() => {
+            const { onFetchList } = this.props;
+            onFetchList(false, false, true, this.page);
+          }}
+        >
+          <Text>加载出错，点击重试</Text>
+        </TouchableOpacity>
       );
     }
     return <View />;
@@ -92,7 +106,6 @@ class ListView extends React.PureComponent<ListViewProps> {
       defaultPage
     } = this.props;
     const refreshColors: string[] = [refreshColor || "#4C7FEF"];
-
     if (loading && this.page === defaultPage) {
       return (
         <LoadingView
@@ -137,6 +150,12 @@ class ListView extends React.PureComponent<ListViewProps> {
 
 const styles = StyleSheet.create({
   footer: {
+    height: 40,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  errorFooter: {
     height: 40,
     flexDirection: "row",
     justifyContent: "center",

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
 interface ErrorViewProps {
   errorMsg?: string;
@@ -7,9 +7,9 @@ interface ErrorViewProps {
 }
 
 const ErrorView: React.SFC<ErrorViewProps> = ({ errorMsg }) => (
-  <View style={styles.container}>
+  <TouchableOpacity style={styles.container}>
     <Text>{errorMsg}</Text>
-  </View>
+  </TouchableOpacity>
 );
 
 ErrorView.defaultProps = {

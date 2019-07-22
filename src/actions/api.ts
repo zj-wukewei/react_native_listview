@@ -4,7 +4,7 @@ import { CommomListParams, UserData } from "../interface";
 import { PageEntity } from "../reducers/handlePageReducer";
 
 const client = axios.create({
-  baseURL: "http://192.168.0.100:8080/",
+  baseURL: "http://192.168.0.104:8080/",
   timeout: 20000,
   headers: {
     "APP-ID": Platform.OS === "android" ? "2" : "1",
