@@ -11,6 +11,10 @@ const NotDataView: React.SFC<NotDataViewProps> = ({ msg }) => (
   </View>
 );
 
+NotDataView.defaultProps = {
+  msg: "暂无数据"
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
