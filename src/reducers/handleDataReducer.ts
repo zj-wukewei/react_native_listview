@@ -17,8 +17,10 @@ const initialState: DataState<any> = {
   error: false
 };
 
-export default function handelDataReducer<TMODEL, Meta = any>(typeName) {
-  return handleReducer<DataState<TMODEL>, BaseData<TMODEL>, Meta>(
+export default function handelDataReducer<TMODEL, Meta = any>(
+  typeName: string
+) {
+  return handleReducer<DataState<TMODEL>, TMODEL, Meta>(
     typeName,
     initialState,
     {
